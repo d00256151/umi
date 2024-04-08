@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Portal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+    <link rel="stylesheet" href="css/sketch-styles.css">
+</head>
+<body onload="startSong1()">
+    <div class="center-items">
+    <!-- Add multiple audio elements -->
+    <audio id="audio1" src="audio/audio-3.mp3"></audio>
+    <audio id="audio2" src="audio/audio-1.mp3"></audio>
+    <audio id="audio3" src="audio/audio-2.mp3"></audio>
+
+    <!-- Add buttons for song selection -->
+    <button onclick="playAudio('audio1')">Play Song 1</button>
+    <button onclick="playAudio('audio2')">Play Song 2</button>
+    <button onclick="playAudio('audio3')">Play Song 3</button>
+    </div>
+
+
+    <div class="drawing-container">
+        <canvas id="drawingCanvas"></canvas>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>

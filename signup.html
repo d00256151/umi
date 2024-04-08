@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body background="images/bg.jpg">
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="signupUsername">Username:</label>
+                <input type="text" id="signupUsername" name="signupUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" name="signupPassword" required>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already registered? <a href="index.html" id="signupLink">Log in</a></ps
+
+    </div>
+
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Get the username and password entered by the user
+            var username = document.getElementById("signupUsername").value;
+            var password = document.getElementById("signupPassword").value;
+
+            // Save signup credentials to CSV file
+            saveToCSV(username, password);
+
+            alert("Sign up successful!");
+        });
+
+        function saveToCSV(username, password) {
+            // Create a CSV string with the signup credentials
+            var csvData = "Username,Password\n" + username + "," + password + "\n";
+
+            // Create a Blob object from the CSV string
+            var blob = new Blob([csvData], { type: "text/csv;charset=utf-8" });
+
+            // Create a link element to trigger the download
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "login_credentials.csv";
+
+            // Trigger the download
+            link.click();
+
+            // Optionally, you can use JavaScript's File System Access API to write directly to the file
+            // This requires browser support and additional permissions from the user
+            // For simplicity, we'll stick with the download approach
+        }
+    </script>
+</body>
+</html>

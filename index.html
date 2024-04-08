@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- You can create a separate CSS file for styling -->
+</head>
+<body background="images/bg.jpg">
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="signup.html" id="signupLink">Sign up</a></p>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Get the username and password entered by the user
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Read the CSV file containing login credentials
+            var fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = ".csv";
+
+            fileInput.onchange = function(event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    var csvData = event.target.result;
+                    if (authenticateUser(username, password, csvData)) {
+                        alert("Login successful!");
+                        // Redirect to drawing_portal.html upon successful login
+                        window.location.href = "drawing_portal.html";
+                    } else {
+                        alert("Invalid username or password. Please try again.");
+                    }
+                };
+                reader.readAsText(file);
+            };
+
+            fileInput.click();
+        });
+
+        // Function to authenticate user against CSV file data
+        function authenticateUser(username, password, csvData) {
+            var rows = csvData.split("\n");
+            for (var i = 1; i < rows.length; i++) {
+                var rowData = rows[i].split(",");
+                if (rowData[0] === username && rowData[1] === password) {
+                    return true; // Authentication successful
+                }
+            }
+            return false; // Authentication failed
+        }
+    </script>
+</body>
+</html>
